@@ -1,0 +1,11 @@
+# REST - CRUD
+- Stamps
+- resource can have at least one uri
+- resources are hierarchical
+- resources are plural
+- Read collection - GET - /stamps
+- Read one item - GET - /stamps/{id} eg. stamps/251897019
+- Create item - POST - /stamps
+- Delete item - DELETE - /stamps/{id} eg. stamps/251897019
+- Update item - PUT - /stamps/{id} eg. stamps/251897019
+- Update partial - PATCH - /stamps/{id} eg. stamps/251897019
