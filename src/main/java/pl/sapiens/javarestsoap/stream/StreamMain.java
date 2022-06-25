@@ -30,8 +30,8 @@ public class StreamMain {
                     System.out.println(name);
                     return name;
                 })
-                .forEach(name -> System.out.println("name: " + name));
-
+//                .forEach(name -> System.out.println("name: " + name));
+                .toList();
     }
 
 }
