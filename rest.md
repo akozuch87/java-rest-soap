@@ -4,8 +4,8 @@
 - resources are hierarchical
 - resources are plural
 - Read collection - GET - /stamps - 200 (body - result)
-- Read one item - GET - /stamps/{id} eg. stamps/251897019
-- Create item - POST - /stamps
+- Read one item - GET - /stamps/{id} eg. stamps/251897019 - 200 if found (body - result) 404 if not found (empty body)
+- Create item - POST - /stamps - 201 + content (positive case), 400 (negative case)
 - Delete item - DELETE - /stamps/{id} eg. stamps/251897019
 - Update item - PUT - /stamps/{id} eg. stamps/251897019
 - Update partial - PATCH - /stamps/{id} eg. stamps/251897019
