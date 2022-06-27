@@ -2,11 +2,11 @@ package pl.sapiens.javarestsoap.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.sapiens.javarestsoap.entity.Reservation;
+import pl.sapiens.javarestsoap.service.ReservationsService;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
@@ -18,13 +18,15 @@ import java.util.List;
 @Path("/reservations")
 public class RestReservationController {
 
-    public static final Reservation THEONLYONE = new Reservation(1L,
+    private static final Reservation THEONLYONE = new Reservation(1L,
             "Kozuch",
             13,
             LocalDateTime.now(),
             LocalDateTime.now().plusHours(2),
             "Main center",
             "Near the window!");
+
+    private final ReservationsService businessLogic = new ReservationsService();
 
     @GET
     public Response getReservations () {
@@ -49,14 +51,19 @@ public class RestReservationController {
             result = Response.status(Response.Status.NOT_FOUND).build();
         }
         return result;
-    };
+    }
 
     @POST
-    public Response createReservation(Reservation toCreate) throws URISyntaxException {
+    public Response createReservation(Reservation toCreate) {
         log.info("Trying to create reservation [{}]", toCreate);
 
         //TODO: use service, add validation
-        URI location = new URI("/reservations/2");
+        URI location = null;
+        try {
+            location = new URI("/reservations/2");
+        } catch (URISyntaxException e){
+            log.error("Cannot create location header");
+        }
 
         return Response.created(location).build();
     }
