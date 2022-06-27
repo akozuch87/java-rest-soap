@@ -19,14 +19,6 @@ import java.util.List;
 @Path("/reservations")
 public class RestReservationController {
 
-    private static final Reservation THEONLYONE = new Reservation(1L,
-            "Kozuch",
-            13,
-            LocalDateTime.now(),
-            LocalDateTime.now().plusHours(2),
-            "Main center",
-            "Near the window!");
-
     private final ReservationsService businessLogic = new ReservationsService();
 
     @GET
@@ -36,20 +28,31 @@ public class RestReservationController {
         return Response.ok(reservations).build();
     }
 
+//    @GET
+//    @Path("/{id}")
+//    public Response getReservationsById(@PathParam("id") Long    reservationId) {
+//        log.info("Trying to find reservation by id: [{}]", reservationId);
+//
+//        Response result;
+//
+//        try {
+//            Reservation found = businessLogic.getReservationById(reservationId);
+//            result = Response.ok(found).build();
+//        } catch (NoReservationFoundException e) {
+//            result = Response.status(Response.Status.NOT_FOUND).build();
+//        }
+//
+//        return result;
+
+
     @GET
     @Path("/{id}")
     public Response getReservationsById(@PathParam("id") Long    reservationId) {
         log.info("Trying to find reservation by id: [{}]", reservationId);
 
         Response result;
-
-        try {
-            Reservation found = businessLogic.getReservationById(reservationId);
-            result = Response.ok(found).build();
-        } catch (NoReservationFoundException e) {
-            result = Response.status(Response.Status.NOT_FOUND).build();
-        }
-
+        Reservation found = businessLogic.getReservationByIdBetter(reservationId);
+        result = Response.ok(found).build();
         return result;
     }
 
