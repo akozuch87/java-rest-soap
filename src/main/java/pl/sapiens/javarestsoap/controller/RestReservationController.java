@@ -2,6 +2,7 @@ package pl.sapiens.javarestsoap.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import pl.sapiens.javarestsoap.entity.Reservation;
+import pl.sapiens.javarestsoap.exception.NoReservationFoundException;
 import pl.sapiens.javarestsoap.service.ReservationsService;
 
 import javax.ws.rs.*;
@@ -40,13 +41,15 @@ public class RestReservationController {
     public Response getReservationsById(@PathParam("id") Long    reservationId) {
         log.info("Trying to find reservation by id: [{}]", reservationId);
 
-        // TODO: replace with integration with service
         Response result;
-        if (reservationId == 1L) {
-            result = Response.ok(THEONLYONE).build();
-        } else {
+
+        try {
+            Reservation found = businessLogic.getReservationById(reservationId);
+            result = Response.ok(found).build();
+        } catch (NoReservationFoundException e) {
             result = Response.status(Response.Status.NOT_FOUND).build();
         }
+
         return result;
     }
 

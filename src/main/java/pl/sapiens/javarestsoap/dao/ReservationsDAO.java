@@ -5,6 +5,8 @@ import pl.sapiens.javarestsoap.entity.Reservation;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 public class ReservationsDAO {
 
@@ -22,6 +24,12 @@ public class ReservationsDAO {
 
     public List<Reservation> findAllReservations() {
         return reservations;
+    }
+
+    public Optional<Reservation> findReservationById(Long id) {
+        return reservations.stream()
+                .filter(reservation -> reservation.getId().equals(id))
+                .findAny();
     }
 
 
